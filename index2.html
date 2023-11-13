@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototype Pollution</title>
+</head>
+<body>
+    
+    <script>
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+
+            this.say = function () {
+                document.write(`<p>My name is ${this.name} and I'm ${this.age}.</p>\n`);
+            }
+        }
+
+        carlos = new Person('Carlos', 23);
+        carlos.say();
+        document.write(carlos.__proto__ + '\n');
+        document.write(carlos.__proto__.constructor + '\n');
+    </script>
+</body>
+</html>

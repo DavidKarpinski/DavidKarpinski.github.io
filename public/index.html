@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototype Pollution</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="assets/css/prism.min.css">
+    <script src="assets/js/prism.min.js" defer></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="assets/img/favicon.png" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <nav class="navbar bg-body-tertiary">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">
+                <img src="assets/img/nginx-48x48.png" width=40 height=40 alt="Logo" class="d-inline-block align-text-center" style="margin-right: 5px;">
+                Nginx config generator
+              </a>
+            </div>
+          </nav>
+    </header>
+    <main>
+        <form action="/generate" method="post" class="form" id="main-form">
+            <div class="mb-3">
+                <label for="server_addr" class="form-label">Server Address (vhost)</label>
+                <input type="text" class="form-control" id="server_addr" name="server_addr" aria-describedby="server_addr-help" placeholder="example.com">
+                <div id="server_addr-help" class="form-text">Your domain on which the application will run</div>
+            </div>
+            <div class="mb-3">
+                <label for="doc_root" class="form-label">Document Root</label>
+                <input type="text" class="form-control" id="doc_root" name="doc_root" placeholder="/var/www/html">
+            </div>
+            <div class="mb-3">
+                <label for="fast_cgi_pass" class="form-label">FastCGI Pass</label>
+                <input type="text" class="form-control" id="fast_cgi_pass" name="fast_cgi_pass" placeholder="unix:/var/run/php/php7.4-fpm.sock">
+            </div>
+            <button type="submit" class="btn btn-primary">Generate Config</button>
+        </form>
+    </main>
+    <section class="code-section">
+        <h2>Simple Request</h2>
+        <pre>
+            <code class="language-powershell whitespace-pre-wrap">
+curl -X POST http://localhost:3333/generate -d "server_addr=[::]:8000&doc_root=/var/www/html&fastcgi_pass=unix:/var/run/php/php7.4-fpm.sock"</code>
+        </pre>
+
+        <h2>Omit FastCGI Pass</h2>
+        <pre>
+            <code class="language-powershell whitespace-pre-wrap">
+curl -X POST http://localhost:3333/generate -d "server_addr=127.1:8000&doc_root=/var/www/html"</code>
+        </pre>
+
+        <h2>Defaults (No request body)</h2>
+        <pre>
+            <code class="language-powershell whitespace-pre-wrap">
+curl -X POST http://localhost:3333/generate</code>
+        </pre>
+        <p>Note: All settings in the request body can be omitted, in which case the default values (contained in the placeholder) will be assigned.</p>
+
+        <h2>GET Request (Equals to Default)</h2>
+        <pre>
+            <code class="language-powershell whitespace-pre-wrap">
+curl -X GET http://localhost:3333/generate</code>
+        </pre>
+    </section>
+
+    <footer class="footer">
+        <p>Can u find the vuln?</p>
+    </footer>
+</body>
+</html>

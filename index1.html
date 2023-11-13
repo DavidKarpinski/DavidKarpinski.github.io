@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototype Pollution</title>
+</head>
+<body>
+    
+    <script>
+        function Person(name, age, /*uid=false*/) {
+            this.name = name;
+            this.age = age;
+           // this.isAdmin = uid;
+        }
+
+        var mary = new Person('Mary', 20);
+        if (mary.isAdmin) {
+            document.write('Is admin');
+        } else {
+            document.write('Is not admin');
+        }
+
+        
+    </script>
+</body>
+</html>

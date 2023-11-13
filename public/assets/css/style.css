@@ -1,0 +1,48 @@
+:root {
+    --mint: rgb(18, 186, 135);
+    --fine-gray: rgb(242, 248, 248);
+}
+
+body {
+    width: 44%;
+    margin-left: 28%;
+}
+
+.navbar {
+    margin: 12px auto 50px auto;
+    background-color: var(--fine-gray) !important;
+    border-radius: 0 35px 35px 0;
+}
+
+.btn {
+    background-color: var(--fine-gray);
+    color: var(--mint);
+    border-color: var(--mint);
+
+    margin-top: 7px;
+}
+
+.btn:hover {
+    background-color: var(--mint);
+    border: var(--mint);
+}
+
+h2 {
+    font-size: 1.5em;
+    margin-bottom: 1em;
+    margin-left: .2em;
+    margin: 2em auto 1em .2em;
+
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.code-section {
+    margin-top: 100px;
+}
+
+.footer {
+    margin-top: 1.2cm;
+    text-align: center;
+    background-color: var(--mint);
+    color: var(--fine-gray)
+}
